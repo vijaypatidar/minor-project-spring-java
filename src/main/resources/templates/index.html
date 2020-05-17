@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minor Project|Home</title>
+    <script src="./js/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Stardos+Stencil"/>
+    <link rel="stylesheet" type="text/css" href="./css/index.css"/>
+
+</head>
+<body>
+<div class="sidenav">
+    <span>Minor Project</span>
+    <a target="targetFrame" href="add-book.html">Add Book</a>
+    <a target="targetFrame" href="issue-book.html">Book Allocation</a>
+    <a target="targetFrame" href="explore-book.html">Explore Book</a>
+    <a target="targetFrame" href="add-book.html">Add new book</a>
+    <a target="targetFrame" href="">Create account</a>
+</div>
+
+<div class="main">
+    <div id="header">
+        <p id="title">Admin Panel</p>
+        <img id="log_in_out" onclick="logout()" src="./img/login-page-icon.png" alt="login_out_icon"/>
+        <span id="hint_user">test</span>
+    </div>
+    <iframe id="iframe" src="add-book.html" width="100%" height="1000" contenteditable="true"
+            name="targetFrame" allowTransparency="true">
+    </iframe>
+</div>
+</body>
+</html>
