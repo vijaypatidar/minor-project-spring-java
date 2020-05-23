@@ -52,4 +52,14 @@ public class Review {
     public void setReview(String review) {
         this.review = review;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
+                ", rating=" + rating +
+                ", review='" + review + '\'' +
+                '}';
+    }
 }

@@ -27,16 +27,15 @@ function show(data) {
     data.forEach(element => {
         const bookTitle = element.title;
         const bookAuthors = element.authors;
-        const bookPublication = "element.publication";
-        const bookISBN = element.ISBN;
+        const bookISBN = element.isbn;
         const bookQuantity = element.quantity;
         const BookAvailable = element.available;
     
     
         con += `<div class="container" style="display:inline-block;"><p style="font-family:Stardos Stencil,serif">` +
-            `${bookTitle}</p><table><tr><td>Book Authors</td><td>${bookAuthors}</td></tr><tr><td>Book Publication</td>` +
-            `<td>${bookPublication}</td></tr><tr><td>Book ISBN</td><td>${bookISBN}</td></tr><tr><td>Book Quantity</td><td>` +
-            `${bookQuantity}</td></tr><tr><td>Book Available</td><td>${BookAvailable}</td></tr></table></div><br/>`
+            `${bookTitle}</p><table><tr><td>Book Authors</td><td>${bookAuthors}</td></tr>` +
+            `<tr><td>Book ISBN</td><td>${bookISBN}</td></tr><tr><td>Book Quantity</td><td>` +
+            `${bookQuantity}</td></tr><tr><td>Book Available</td><td>${BookAvailable}</td></tr></table></div>`
     });
 
     id("body").innerHTML = con;

@@ -1,21 +1,20 @@
 package com.svceindore.minor.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 @Document
 public class BookDetail {
     @Id
     private String id;
     private String title;
     private String authors;
-    private String ISBN;
-    private int quantity,available;
+    private String isbn;
+    private int quantity, available;
     private List<Review> reviews;
+
     public BookDetail() {
 
     }
@@ -24,7 +23,7 @@ public class BookDetail {
         this.id = id;
         this.title = title;
         this.authors = authors;
-        this.ISBN = ISBN;
+        this.isbn = ISBN;
         this.quantity = quantity;
         this.available = available;
         this.reviews = reviews;
@@ -54,12 +53,12 @@ public class BookDetail {
         this.authors = authors;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public int getQuantity() {
@@ -84,5 +83,18 @@ public class BookDetail {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    @Override
+    public String toString() {
+        return "BookDetail{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", authors=" + authors +
+                ", ISBN='" + isbn + '\'' +
+                ", quantity=" + quantity +
+                ", available=" + available +
+                ", reviews=" + reviews +
+                '}';
     }
 }

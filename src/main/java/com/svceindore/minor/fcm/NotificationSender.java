@@ -3,7 +3,6 @@ package com.svceindore.minor.fcm;
 import com.svceindore.minor.exception.FCMKeyNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.context.annotation.Bean;
 
 import java.io.*;
 import java.net.HttpURLConnection;

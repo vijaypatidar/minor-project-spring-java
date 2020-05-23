@@ -28,49 +28,39 @@ function addBook() {
     if (!validate("bookAuthors")) {
         return;
     }
-    if (!validate("bookPublication")) {
-        return;
-    }
     if (!validate("bookISBN")) {
         return;
     }
 
     const bookTitle = id("bookTitle").innerText.trim();
     const bookAuthors = id("bookAuthors").innerText.trim();
-    const bookPublication = id("bookPublication").innerText.trim();
     const bookISBN = id("bookISBN").innerText.trim();
 
 
     // check user in database with http request
     const http = new XMLHttpRequest();
     // send post request to login url
-    http.open("POST", "/api/book/addBook", true);
+    http.open("POST", "api/book", true);
     http.setRequestHeader("Content-type", "application/json");
     http.onreadystatechange = function () {
-        if (this.readyState === 4) {
-            if (this.status === 401) {
-                alert("wrong email or password")
-            } else
-                handleRes(this.responseText);
+        if (this.readyState === 4 && this.status === 200) {
+            handleRes(this.responseText);
+        }else if (this.readyState === 4 &&this.status===403){
+            alert("Access denied")
         }
     };
-    http.send(`title=${bookTitle}&authors=${bookAuthors}&ISBN=${bookISBN}&quantity=0&available=0`);
+    let data = {};
+    data.title = bookTitle;
+    data.available = 0;
+    data.quality = 0;
+    data.isbn = bookISBN;
+    data.reviews = [];
+    data.authors = bookAuthors;
+    http.send(JSON.stringify(data));
 
 }
 
 function handleRes(result) {
     console.log(result);
-    if (result === "done") {
-        alert("book added");
-    } else {
-        alert("wrong email or password");
-    }
-}
-
-
-window.onload = function () {
-    const url_string = window.location.href;
-    let url = new URL(url_string);
-    token = url.searchParams.get("AccessToken");
-    console.log(token);
+    alert("book added");
 }
