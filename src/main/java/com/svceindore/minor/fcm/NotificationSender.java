@@ -29,7 +29,6 @@ public class NotificationSender {
     }
 
     public String toTopic(String topic) throws Exception {
-        System.out.println("Send to Topic : "+topic);
         root.put("condition", "'" + topic + "' in topics");
         return sendPushNotification(true);
     }
@@ -71,21 +70,6 @@ public class NotificationSender {
                 builder.append(output);
             }
             System.out.println(builder);
-            String result = builder.toString();
-
-            JSONObject obj = new JSONObject(result);
-
-            if (toTopic) {
-                if (obj.has("message_id")) {
-                    return "SUCCESS";
-                }
-            } else {
-                int success = Integer.parseInt(obj.getString("success"));
-                if (success > 0) {
-                    return "SUCCESS";
-                }
-            }
-
             return builder.toString();
         } catch (Exception e) {
             e.printStackTrace();

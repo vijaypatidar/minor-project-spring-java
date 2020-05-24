@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     @Id
     private String id;
-
     private String email;
     private String password;
     private boolean enable;
@@ -61,5 +60,16 @@ public class User {
 
     public void setAuthority(String authority) {
         this.authority = authority;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", enable=" + enable +
+                ", authority='" + authority + '\'' +
+                '}';
     }
 }

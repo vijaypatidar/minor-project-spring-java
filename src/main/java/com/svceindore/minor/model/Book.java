@@ -10,6 +10,7 @@ public class Book  {
     @Id
     private String id;
     private String title;
+    private String issuedTo;
     private String author,bookId;
     private Date issuedOn,SubmittedOn;
     private int fine;
@@ -50,6 +51,14 @@ public class Book  {
 
     public void setSubmittedOn(Date submittedOn) {
         SubmittedOn = submittedOn;
+    }
+
+    public String getIssuedTo() {
+        return issuedTo;
+    }
+
+    public void setIssuedTo(String issuedTo) {
+        this.issuedTo = issuedTo;
     }
 
     public int getFine() {

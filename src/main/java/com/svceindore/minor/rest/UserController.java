@@ -23,7 +23,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable String id) {
-        return userRepository.findById(id).get();
+        return userRepository.findByEmail(id);
     }
 
     @PostMapping()
