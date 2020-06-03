@@ -8,7 +8,10 @@ import com.svceindore.minor.model.Token;
 import com.svceindore.minor.repositories.BookDetailRepository;
 import com.svceindore.minor.repositories.BookRepository;
 import com.svceindore.minor.repositories.TokenRepository;
+import com.svceindore.minor.utils.Constants;
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -42,23 +45,35 @@ public class BookController {
         }
 
         Book book = optional.get();
-        System.out.println(book.getIssuedTo());
-        if (book.getIssuedTo().isEmpty()||book.getIssuedTo()==null){
+        JSONObject jsonObject = new JSONObject();
+        if (book.getIssuedTo() == null || book.getIssuedTo().isEmpty()) {
             book.setIssuedTo(email);
             book.setIssuedOn(new Date());
             book.setSubmittedOn(book.getIssuedOn());
             bookRepository.save(book);
-            counter(book.getBookId(),false);
+            counter(book.getBookId(), false);
 
             Notification notification = new Notification();
-            notification.setTitle("Book issued!");
-            notification.setContentDetailInfo("New book(" + book.getTitle() + ") is issued to your account " + email + " on " + new Date().toString());
+            notification.setTitle("Book issued alert!");
+            notification.setContentDetailInfo(book.getTitle() + " book is issued to your account " + email + " on " + new Date().toString());
             notifyUser(notification, email);
-            return ResponseEntity.ok().body("issued ");
-        }else {
-            return ResponseEntity.ok().body("Book already issued");
-        }
 
+            jsonObject.put("status", "done");
+            jsonObject.put("message", book.getTitle() + " book issued successfully");
+        } else {
+            jsonObject.put("status", "failed");
+            jsonObject.put("message", "book already issued");
+        }
+        return ResponseEntity.ok().body(jsonObject.toString());
+
+    }
+
+    @Secured(value = {Constants.ROLE_ADMIN})
+    @PostMapping(value = {"/submit/{bookId}"})
+    public @ResponseBody
+    ResponseEntity<String> submitBook(@PathVariable String bookId) {
+        //todo implementation
+        return null;
     }
 
     @PostMapping(value = {"/book/{bookId}"})
@@ -83,12 +98,12 @@ public class BookController {
         }).start();
     }
 
-    private void counter(String id,boolean increment){
-        new Thread(()->{
+    private void counter(String id, boolean increment) {
+        new Thread(() -> {
             Optional<BookDetail> byId = bookDetailRepository.findById(id);
-            if (byId.isPresent()){
+            if (byId.isPresent()) {
                 BookDetail bookDetail = byId.get();
-                bookDetail.setAvailable(bookDetail.getAvailable()+(increment?1:-1));
+                bookDetail.setAvailable(bookDetail.getAvailable() + (increment ? 1 : -1));
                 bookDetailRepository.save(bookDetail);
             }
         }).start();
